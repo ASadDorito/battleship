@@ -1,0 +1,12 @@
+.scoreboard{
+    height: 20vh; 
+    width: 100vw;   
+    background-color: lightblue; 
+    position: absolute;        
+    top: 0;                  
+    left: 50%;               
+    transform: translateX(-50%); 
+    box-sizing: border-box; 
+    font-size: 200%;
+    padding-top: 2%;
+}

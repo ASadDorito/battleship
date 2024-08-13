@@ -1,36 +1,54 @@
-//import { useState } from 'react'
+import { useState} from 'react'
 import './App.css'
+import Card from './components/Card';
+import ScoreBoard from './components/ScoreBoard';
 
-function ListItem(props) {
-  return <li>{props.animal}</li>
-}
 
-function List(props) {
 
-  if (!props.animals) {
-    return <div>Loading...</div>;
-  }
-
-  if (props.animals.length === 0) {
-    return <div>There are no animals in the list!</div>;
-  }
-
-  return (
-    <ul>
-      {props.animals.map((animal) => {
-        return <li key={animal}>{animal}</li>;
-      })}
-    </ul>
-  );
-}
 function App() {
-  const animals = ["Lion", "Cow", "Snake", "Lizard"];
+  //the array to randomize pokemon
+  const initArray = Array.from({ length: 10}, () => Math.floor(Math.random() * 1000) + 1);
+  const [pokeArray, setPokeArray] = useState(initArray);
+  
+  //score setting for the scoreboard
+  const [score, setScore] = useState(0);
+  const [guessedCards, setGuessedCards] = useState([]);
+
+  const shuffleArray = (array) => {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  };
+
+  const handleShuffle = () => {
+    setPokeArray(shuffleArray(pokeArray));
+  };
+
+  const handleCardClick = (id) => {
+    //if the set of clickedCards does not contain this id
+    if(guessedCards.includes(id) == false){
+      setGuessedCards([...guessedCards, id]);
+      setScore(score + 1);
+    } else {
+      // Card has been guessed before, reset the game
+      setGuessedCards([]);
+      setScore(0);
+    }
+    handleShuffle();
+  }
 
   return (
-    <div>
-      <h1>Animals: </h1>
-      <List animals={animals} />
-    </div>
+    <>
+      <ScoreBoard score = {score} total={initArray.length} />
+      <div className='CardContainer'>
+      {pokeArray.map(id => (
+                    <Card key={id} id={id} onClick={() => handleCardClick(id)} />
+                ))}
+      </div>
+    </>
   );
 }
 

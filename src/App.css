@@ -33,10 +33,15 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
   color: #888;
+}
+
+.CardContainer {
+  width: 100%;                
+  display: flex;             
+  flex-wrap: wrap;        
+  justify-content: center;   
+  padding-top: 20vh;      
+  box-sizing: border-box;   
 }
