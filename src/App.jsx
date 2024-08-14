@@ -13,6 +13,7 @@ function App() {
   //score setting for the scoreboard
   const [score, setScore] = useState(0);
   const [guessedCards, setGuessedCards] = useState([]);
+  const[bestScore, setBest] = useState(0);
 
   const shuffleArray = (array) => {
     const newArray = [...array];
@@ -35,6 +36,9 @@ function App() {
     } else {
       // Card has been guessed before, reset the game
       setGuessedCards([]);
+      if(score > bestScore){
+        setBest(score);
+      }
       setScore(0);
     }
     handleShuffle();
@@ -42,7 +46,7 @@ function App() {
 
   return (
     <>
-      <ScoreBoard score = {score} total={initArray.length} />
+      <ScoreBoard score = {score} total={initArray.length} bestScore = {bestScore}/>
       <div className='CardContainer'>
       {pokeArray.map(id => (
                     <Card key={id} id={id} onClick={() => handleCardClick(id)} />
