@@ -48,6 +48,7 @@ function App() {
                     <Card key={id} id={id} onClick={() => handleCardClick(id)} />
                 ))}
       </div>
+      <p>background credit: 438emily</p>
     </>
   );
 }
